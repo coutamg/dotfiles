@@ -1,5 +1,31 @@
 local dap = require('dap')
 
+local get_pid_and_name = function(exec_name)
+  local pattern = string.format("-ef | grep -v grep | grep %s", exec_name)
+  local output = vim.fn.system({'ps', pattern})
+  local lines = vim.split(output, '\n')
+  local procs = {}
+  for _, line in pairs(lines) do
+    -- output format
+    --    " 107021 pts/4    Ss     0:00 /bin/zsh <args>"
+    local parts = vim.fn.split(vim.fn.trim(line), ' \\+')
+    local pid = parts[1]
+    local name = table.concat({unpack(parts, 5)}, ' ')
+    if pid and pid ~= 'PID' then
+      pid = tonumber(pid)
+      if pid ~= vim.fn.getpid() then
+        table.insert(procs, { pid = pid, name = name })
+      end
+    end
+  end
+  local label_fn = function(proc)
+    return string.format("id=%d name=%s", proc.pid, proc.name)
+  end
+  local result = require('dap.ui').pick_one_sync(procs, "Select process", label_fn)
+  return result.pid and result.name or nil
+
+end
+
 dap.adapters.cppdbg = {
   id = 'cppdbg',
   type = "executable",
@@ -29,12 +55,16 @@ dap.configurations.cpp = {
     name = "Attach process",
     type = "cppdbg",
     request = "attach",
-    processId = function()
-      local pid = vim.fn.input('input attach pid: ')
-      return tonumber(pid)
-    end,
-    program = function()
-      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    -- processId = function()
+    --   local pid = vim.fn.input('input attach pid: ')
+    --   return tonumber(pid)
+    -- end,
+    -- program = function()
+    --   return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    -- end,
+    processId, program = function()
+      local exec_name = vim.fn.input('exec name: ')
+      return get_pid_and_name(exec_name)
     end,
     cwd = "${workspaceFolder}",
     setupCommands = {
