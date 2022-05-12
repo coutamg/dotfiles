@@ -1,11 +1,12 @@
 local dap = require('dap')
 
-process_name
+process_name = ""
 
 local get_pid_and_name = function(exec_name)
   local output = vim.fn.system({'ps', 'aux'})
   local lines = vim.split(output, '\n')
   local procs = {}
+  local pid_to_name = {}
   for _, line in pairs(lines) do
     if string.match(line, exec_name) ~= nil then 
       -- output format
@@ -17,6 +18,7 @@ local get_pid_and_name = function(exec_name)
         pid = tonumber(pid)
         if pid ~= vim.fn.getpid() then
           table.insert(procs, { pid = pid, name = name })
+          table.insert(pid_to_name, { pid = pid, name = parts[11] })
         end
       end
     end
@@ -26,7 +28,7 @@ local get_pid_and_name = function(exec_name)
   end
   local result = require('dap.ui').pick_one_sync(procs, "Select process", label_fn)
   local names = vim.fn.split(vim.fn.trim(result.name), ' \\+')
-  process_name = names[1]
+  process_name = pid_to_name[result.pid]
   return result.pid
   --return result.pid , result.name
 end
