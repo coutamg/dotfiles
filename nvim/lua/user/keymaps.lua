@@ -38,7 +38,7 @@ keymap("n", "<leader>l", ":nohl<cr>", opts)
 -- save buffer
 keymap("n", "<C-s>", ":w<cr>", opts)
 -- exit cur window
-keymap("n", "<leader>q", ":q<cr>", opts)
+keymap("n", "<leader>q", ":!q<cr>", opts)
 -- delete cur buffer
 keymap("n", "<S-d>", ":bdelete<cr>", opts)
 -- keymap("n", "<leader>D", ":bdelete<cr>", opts)
