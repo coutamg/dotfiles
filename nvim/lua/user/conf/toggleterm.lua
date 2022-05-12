@@ -6,7 +6,7 @@ end
 toggleterm.setup({
 	size = 20,
   -- TODO: add my own keymapping to <space-t>
-	open_mapping = [[<c-\>]],
+	open_mapping = [[<c-t>]],
 	hide_numbers = false,
 	shade_filetypes = {},
 	shade_terminals = true,

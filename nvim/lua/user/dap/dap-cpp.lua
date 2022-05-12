@@ -29,7 +29,10 @@ dap.configurations.cpp = {
     name = "Attach process",
     type = "cppdbg",
     request = "attach",
-    processId = require('dap.utils').pick_process,
+    processId = function()
+      local pid = vim.fn.input('input attach pid: ')
+      return tonumber(pid)
+    end,
     program = function()
       return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
     end,

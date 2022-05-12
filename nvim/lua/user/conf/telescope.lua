@@ -53,6 +53,16 @@ if not status_ok then
 end
 
 local actions = require "telescope.actions"
+local _, builtin = pcall(require, "telescope.builtin")
+
+local M = {}
+function M.find_project_files()
+  local ok = pcall(builtin.git_files)
+
+  if not ok then
+    builtin.find_files()
+  end
+end
 
 -- disable preview binaries
 local previewers = require("telescope.previewers")
@@ -158,22 +168,22 @@ telescope.setup {
       },
     },
   },
-  pickers = {
-    find_files = {
-      theme = "dropdown",
-      previewer = false,
-      -- find_command = { "find", "-type", "f" },
-      find_command = {"fd"},
-    },
+  -- pickers = {
+  --   find_files = {
+  --     theme = "dropdown",
+  --     previewer = false,
+  --     -- find_command = { "find", "-type", "f" },
+  --     find_command = {"fd"},
+  --   },
 
-    -- Default configuration for builtin pickers goes here:
-    -- picker_name = {
-    --   picker_config_key = value,
-    --   ...
-    -- }
-    -- Now the picker_config_key will be applied every time you call this
-    -- builtin picker
-  },
+  --   -- Default configuration for builtin pickers goes here:
+  --   -- picker_name = {
+  --   --   picker_config_key = value,
+  --   --   ...
+  --   -- }
+  --   -- Now the picker_config_key will be applied every time you call this
+  --   -- builtin picker
+  -- },
   extensions = {
     -- Your extension configuration goes here:
     -- extension_name = {
