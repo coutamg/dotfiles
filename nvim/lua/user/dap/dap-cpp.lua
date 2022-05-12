@@ -1,20 +1,23 @@
 local dap = require('dap')
 
+process_name
+
 local get_pid_and_name = function(exec_name)
-  local pattern = string.format("-ef | grep -v grep | grep %s", exec_name)
-  local output = vim.fn.system({'ps', pattern})
+  local output = vim.fn.system({'ps', 'aux'})
   local lines = vim.split(output, '\n')
   local procs = {}
   for _, line in pairs(lines) do
-    -- output format
-    --    " 107021 pts/4    Ss     0:00 /bin/zsh <args>"
-    local parts = vim.fn.split(vim.fn.trim(line), ' \\+')
-    local pid = parts[1]
-    local name = table.concat({unpack(parts, 5)}, ' ')
-    if pid and pid ~= 'PID' then
-      pid = tonumber(pid)
-      if pid ~= vim.fn.getpid() then
-        table.insert(procs, { pid = pid, name = name })
+    if string.match(line, exec_name) ~= nil then 
+      -- output format
+      --    " 107021 pts/4    Ss     0:00 /bin/zsh <args>"
+      local parts = vim.fn.split(vim.fn.trim(line), ' \\+')
+      local pid = parts[2]
+      local name = table.concat({unpack(parts, 11)}, ' ')
+      if pid and pid ~= 'PID' then
+        pid = tonumber(pid)
+        if pid ~= vim.fn.getpid() then
+          table.insert(procs, { pid = pid, name = name })
+        end
       end
     end
   end
@@ -22,14 +25,16 @@ local get_pid_and_name = function(exec_name)
     return string.format("id=%d name=%s", proc.pid, proc.name)
   end
   local result = require('dap.ui').pick_one_sync(procs, "Select process", label_fn)
-  return result.pid and result.name or nil
-
+  local names = vim.fn.split(vim.fn.trim(result.name), ' \\+')
+  process_name = names[1]
+  return result.pid
+  --return result.pid , result.name
 end
 
 dap.adapters.cppdbg = {
   id = 'cppdbg',
   type = "executable",
-  command = os.getenv('HOME') .. '/.config/nvim/lua/user/dap/debugger/ms-vscode.cpptools-1.7.1/debugAdapters/bin/OpenDebugAD7',
+  command = os.getenv('HOME') .. '/.config/nvim/lua/user/dap/debugger/ms-vscode.cpptools/debugAdapters/bin/OpenDebugAD7',
 }
 dap.configurations.cpp = {
 -- launch exe
@@ -62,10 +67,11 @@ dap.configurations.cpp = {
     -- program = function()
     --   return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
     -- end,
-    processId, program = function()
+    processId = function()
       local exec_name = vim.fn.input('exec name: ')
       return get_pid_and_name(exec_name)
-    end,
+    end, 
+    program = process_name,
     cwd = "${workspaceFolder}",
     setupCommands = {
     {

@@ -4,7 +4,7 @@ dap_install.config(
 {
     -- adapters = {
     --   type = "executable",
-    --   command = os.getenv('HOME') .. '/.config/nvim/lua/user/dap/debugger/ms-vscode.cpptools-1.7.1/debugAdapters/bin/OpenDebugAD7',
+    --   command = os.getenv('HOME') .. '/.config/nvim/lua/user/dap/debugger/ms-vscode.cpptools/debugAdapters/bin/OpenDebugAD7',
     --   -- command = "/home/raven/.local/share/nvim/dapinstall/ccppr_vsc/extension/debugAdapters/bin/OpenDebugAD7",
     -- },
     -- configurations = {

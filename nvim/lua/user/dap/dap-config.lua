@@ -1,6 +1,6 @@
 local M = {}
 
-local function config_dapi_and_sign()
+local function f()
   local dap_install = require "dap-install"
   dap_install.setup {
     installation_path = vim.fn.stdpath "data" .. "/dapinstall/",
@@ -70,8 +70,8 @@ local function config_debuggers()
   -- load from json file
   require('dap.ext.vscode').load_launchjs(nil, { cppdbg = { 'cpp' } })
   -- config per launage
-  -- require("user.dap.dap-cpp")
-  require("user.dap.di-cpp")
+  require("user.dap.dap-cpp")
+  -- require("user.dap.di-cpp")
   -- require("user.dap.dap-go")
   require("user.dap.di-go")
   require("user.dap.di-python")
