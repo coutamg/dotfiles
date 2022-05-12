@@ -22,10 +22,6 @@ keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
--- 退出
-keymap("n", "<leader>q", ":q!<cr>", opts)
--- 保存
-keymap("n", "<C-s>", ":w<cr>", opts)
 
 -- NOTE: require winshit plugin
 keymap("n", "<C-W>m", ":WinShift<cr>", opts)
@@ -36,11 +32,11 @@ keymap("n", "<C-W>m", ":WinShift<cr>", opts)
 
 
 -- FileExpoler
-keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
+keymap("n", "e", ":NvimTreeToggle<cr>", opts)
 -- no highlight
 keymap("n", "<leader>l", ":nohl<cr>", opts)
 -- save buffer
-keymap("n", "<leader>w", ":w<cr>", opts)
+keymap("n", "<C-s>", ":w<cr>", opts)
 -- exit cur window
 keymap("n", "<leader>q", ":q<cr>", opts)
 -- delete cur buffer
@@ -123,7 +119,7 @@ keymap("n", "mA", "<cmd>Telescope vim_bookmarks all<cr>", opts)
 
 
 keymap("n", "<A-o>", "<cmd>ClangdSwitchSourceHeader<cr>", opts)
-keymap("n", "<leader>u", "<cmd>Trouble lsp_references<cr>", opts)
+-- keymap("n", "<leader>u", "<cmd>Trouble lsp_references<cr>", opts)
 
 -- calltree
 keymap("n", "<leader>in", "<cmd>lua vim.lsp.buf.incoming_calls()<cr>", opts)

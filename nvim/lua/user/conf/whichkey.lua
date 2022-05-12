@@ -89,7 +89,34 @@ local mappings = {
   -- ["w"] = { "<cmd>w!<CR>", "Save" },
   -- ["q"] = { "<cmd>q!<CR>", "Quit" },
   -- ["/"] = { "<cmd>lua require('Comment').toggle()<CR>", "Comment" },
-  ["C"] = { "<cmd>%bd|e#<CR>", "Close Other Buffers" },
+  b = {
+    -- leader + b 进入下面操作
+    -- buffer 就是 vim 打开的一个页面
+    name = "Buffers",
+    j = { "<cmd>BufferLinePick<cr>", "Jump" },
+    -- 在buffer 中查找
+    f = { "<cmd>Telescope buffers<cr>", "Find" },
+    b = { "<cmd>BufferLineCyclePrev<cr>", "Previous" },
+    -- w = { "<cmd>BufferWipeout<cr>", "Wipeout" }, -- TODO: implement this for bufferline
+    e = {
+      "<cmd>BufferLinePickClose<cr>",
+      "Pick which buffer to close",
+    },
+    h = { "<cmd>BufferLineCloseLeft<cr>", "Close all to the left" },
+    l = {
+      "<cmd>BufferLineCloseRight<cr>",
+      "Close all to the right",
+    },
+    c = { "<cmd>%bd|e#<CR>", "Close Other Buffers" },
+    -- D = {
+    --   "<cmd>BufferLineSortByDirectory<cr>",
+    --   "Sort by directory",
+    -- },
+    -- L = {
+    --   "<cmd>BufferLineSortByExtension<cr>",
+    --   "Sort by language",
+    -- },
+  },
   -- ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
   ["f"] = {
     require("user.conf.telescope.custom-finders").find_project_files,
@@ -124,18 +151,18 @@ local mappings = {
     "Clipboard Manager"
   },
 
-  c = {
-    name = "CMake",
-    g = {"<cmd>CMake configure<CR>", "Configure"},
-    t = {"<cmd>CMake select_target<CR>", "SelectTarget"},
-    T = {"<cmd>CMake select_build_type<CR>", "SelectBuildType"},
-    b = {"<cmd>CMake build<CR>", "BuildTarget"},
-    a = {"<cmd>CMake build_all<CR>", "BuildAll"},
-    r = {"<cmd>CMake build_and_run<CR>", "Run"},
-    d = {"<cmd>CMake build_and_debug<CR>", "DebugTarget"},
-    c = {"<cmd>CMake cancel<CR>", "Cancel"},
-    s = {"<cmd>CMake set_target_args<CR>", "SetArg"},
-  },
+  -- c = {
+  --   name = "CMake",
+  --   g = {"<cmd>CMake configure<CR>", "Configure"},
+  --   t = {"<cmd>CMake select_target<CR>", "SelectTarget"},
+  --   T = {"<cmd>CMake select_build_type<CR>", "SelectBuildType"},
+  --   b = {"<cmd>CMake build<CR>", "BuildTarget"},
+  --   a = {"<cmd>CMake build_all<CR>", "BuildAll"},
+  --   r = {"<cmd>CMake build_and_run<CR>", "Run"},
+  --   d = {"<cmd>CMake build_and_debug<CR>", "DebugTarget"},
+  --   c = {"<cmd>CMake cancel<CR>", "Cancel"},
+  --   s = {"<cmd>CMake set_target_args<CR>", "SetArg"},
+  -- },
 
   d = {
     name = "Debug",
@@ -167,6 +194,7 @@ local mappings = {
     d = { "<cmd>Trouble document_diagnostics<cr>", "Document Diagnostics"},
     w = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace Diagnostics"},
     q = { "<cmd>Trouble quickfix<cr>", "Quick Fix"},
+    -- 查看函数被引用
     u = { "<cmd>Trouble lsp_references<cr>", "Usage"},
     g = { "<cmd>Gitsigns setloclist<cr>", "Open changed hunk" },
   },
@@ -249,6 +277,12 @@ local mappings = {
     S = {
       "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
       "Workspace Symbols",
+    },
+    p = {
+      name = "Peek",
+      d = { "<cmd>lua require('user.lsp.peek').Peek('definition')<cr>", "Definition" },
+      t = { "<cmd>lua require('user.lsp.peek').Peek('typeDefinition')<cr>", "Type Definition" },
+      i = { "<cmd>lua require('user.lsp.peek').Peek('implementation')<cr>", "Implementation" },
     },
   },
 

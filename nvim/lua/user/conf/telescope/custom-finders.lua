@@ -9,3 +9,4 @@ function M.find_project_files()
       builtin.find_files()
     end
 end
+return M
