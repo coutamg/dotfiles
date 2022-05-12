@@ -92,7 +92,8 @@ local mappings = {
   ["C"] = { "<cmd>%bd|e#<CR>", "Close Other Buffers" },
   -- ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
   ["f"] = {
-    require("usr.conf.telescope").find_project_files(),
+    require("user.conf.telescope.custom-finders").find_project_files,
+    --"<cmd>lua require('telescope.builtin').git_files()<cr>",
     -- "<cmd>lua require('telescope').extensions.frecenncy.frecency(require('telescope.themes').get_dropdown({ previewer = false }))<cr>",
     "Find files",
   },

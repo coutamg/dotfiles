@@ -1,3 +1,33 @@
+local function switch_source_header_splitcmd(bufnr, splitcmd)
+    bufnr = vim.api.nvim_get_current_buf()
+    local params = {uri = vim.uri_from_bufnr(bufnr)}
+    vim.lsp.buf_request(bufnr, 'textDocument/switchSourceHeader', params, function(err, dst_file, result)
+        if err then error(tostring(err)) end
+        if not result then
+            print("Corresponding file can’t be determined")
+            return
+        end
+        vim.api.nvim_command(splitcmd .. ' ' .. vim.uri_to_fname(dst_file))
+    end)
+end
+
+local command = {  
+    ClangdSwitchSourceHeader = {  
+        function()  
+            switch_source_header_splitcmd(0, "edit")  
+        end,  
+        description = "Open source/header in current buffer"  
+    }
+}
+
+local file_type = {"c", "cpp", "objc", "objcpp", "hpp", "h"}
+
+local custom_on_attach = function(client, bufnr)
+	require("usr.lsp").common_on_attach(client, bufnr)
+	local opts = { noremap = true, silent = true }
+	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>lh", "<Cmd>switchSourceHeader<CR>", opts)
+end
+
 return {
   cmd = {
     "clangd",     -- NOTE: 只支持clangd 13.0.0 及其以下版本，新版本会有问题
@@ -17,7 +47,10 @@ return {
 		"--header-insertion-decorators",
 		"-j=12",
 		"--pretty",
-  }
+  },
+  on_attach = custom_on_attach,
+  filetypes = file_type,
+  commands = command,
 }
 
 -- NOTE: generate a .clangd-tidy file under project root dir to enable this feature
