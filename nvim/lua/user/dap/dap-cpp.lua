@@ -26,7 +26,7 @@ end
 
 local get_exec_name = function()
   local name = vim.fn.getenv('DEBUG_PATH')
-  if string.len(name) == '' then
+  if name == '' then
     name = vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
   end
   return name
@@ -35,7 +35,7 @@ end
 dap.adapters.cppdbg = {
   id = 'cppdbg',
   type = "executable",
-  command = os.getenv('HOME') .. '/.config/nvim/lua/user/dap/debugger/ms-vscode.cpptools/debugAdapters/bin/OpenDebugAD7',
+  command = os.getenv('HOME') .. '/.config/nvim/lua/user//ms-vscode.cpptools/debugAdapters/bin/OpenDebugAD7',
 }
 dap.configurations.cpp = {
 -- launch exe
