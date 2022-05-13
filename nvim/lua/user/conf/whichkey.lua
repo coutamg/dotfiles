@@ -85,7 +85,7 @@ local mappings = {
   --   "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
   --   "Buffers",
   -- },
-  ["/"] = { "<cmd>lua require('Comment.api').toggle_current_linewise()<CR>", "Comment" },
+  -- ["/"] = { "<cmd>lua require('Comment.api').toggle_current_linewise()<CR>", "Comment" },
   -- ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
   -- ["w"] = { "<cmd>w!<CR>", "Save" },
   -- ["q"] = { "<cmd>q!<CR>", "Quit" },
@@ -120,7 +120,8 @@ local mappings = {
   },
   -- ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
   ["f"] = {
-    require("user.conf.telescope.custom-finders").find_project_files,
+    "<cmd>lua require('telescope.builtin').git_files()<cr>",
+    -- require("user.conf.telescope.custom-finders").find_project_files,
     --"<cmd>lua require('telescope.builtin').git_files()<cr>",
     -- "<cmd>lua require('telescope').extensions.frecenncy.frecency(require('telescope.themes').get_dropdown({ previewer = false }))<cr>",
     "Find files",
@@ -131,18 +132,18 @@ local mappings = {
     "<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>",
     "Find Document Symbols",
   },
-  ["S"] = {
-    "<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>",
-    -- "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>",
-    "Find Symobls",
-  },
+  -- ["S"] = {
+  --   "<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>",
+  --   -- "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>",
+  --   "Find Symobls",
+  -- },
   ["p"] = { "<cmd>Telescope projects<cr>", "Projects" },
 
-  ["P"] = { "<cmd>SessionManager load_session<cr>", "Projects" },
+  -- ["P"] = { "<cmd>SessionManager load_session<cr>", "Projects" },
 
-  ["t"] = {
-    "<cmd>UltestSummary<CR>", "Unit Test"
-  },
+  -- ["t"] = {
+  --   "<cmd>UltestSummary<CR>", "Unit Test"
+  -- },
 
   ["o"] = {
     "<cmd>AerialToggle<CR>", "Outline"
