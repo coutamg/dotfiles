@@ -1,15 +1,11 @@
 local dap = require('dap')
 
--- process_name = ""
-
-local get_pid_and_name = function(exec_name)
+local get_pid = function(exec_name)
   local output = vim.fn.system({'ps', 'aux'})
   local lines = vim.split(output, '\n')
   local procs = {}
   for _, line in pairs(lines) do
     if string.match(line, exec_name) ~= nil then 
-      -- output format
-      --    " 107021 pts/4    Ss     0:00 /bin/zsh <args>"
       local parts = vim.fn.split(vim.fn.trim(line), ' \\+')
       local pid = parts[2]
       local name = table.concat({unpack(parts, 11)}, ' ')
@@ -25,11 +21,16 @@ local get_pid_and_name = function(exec_name)
     return string.format("id=%d name=%s", proc.pid, proc.name)
   end
   local result = require('dap.ui').pick_one_sync(procs, "Select process", label_fn)
-  local names = vim.fn.split(vim.fn.trim(result.name), ' \\+')
-  process_name = names[1]
   return result.pid
-  --return result.pid , result.name
 end
+
+local get_exec_name = function() {
+  local name = vn.fn.getenv('DEBUG_PATH')
+  if string.len(name) == '' then
+    name = vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+  end
+  return name
+}
 
 dap.adapters.cppdbg = {
   id = 'cppdbg',
@@ -42,9 +43,7 @@ dap.configurations.cpp = {
     name = "Launch file",
     type = "cppdbg",
     request = "launch",
-    program = function()
-      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-    end,
+    program = get_exec_name(),
     cwd = '${workspaceFolder}',
     stopOnEntry = true,
     setupCommands = {
@@ -64,14 +63,11 @@ dap.configurations.cpp = {
     --   local pid = vim.fn.input('input attach pid: ')
     --   return tonumber(pid)
     -- end,
-    -- program = function()
-    --   return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-    -- end,
     processId = function()
       local exec_name = vim.fn.input('exec name: ')
-      return get_pid_and_name(exec_name)
-    end, 
-    program = process_name,
+      return get_pid(exec_name)
+    end,
+    program = get_exec_name(),
     cwd = "${workspaceFolder}",
     setupCommands = {
     {
@@ -89,9 +85,7 @@ dap.configurations.cpp = {
     MIMode = 'gdb',
     miDebuggerServerAddress = 'localhost:1234',
     miDebuggerPath = '/usr/bin/gdb', cwd = '${workspaceFolder}',
-    program = function()
-      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-    end,
+    program = get_exec_name(),
     setupCommands = {
       {
         text = '-enable-pretty-printing',

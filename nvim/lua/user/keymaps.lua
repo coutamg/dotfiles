@@ -45,9 +45,11 @@ keymap("n", "<C-s>", ":w<cr>", opts)
 -- exit whole program
 keymap("n", "ZZ", ":lua require('user.utils').SaveAndExit()<cr>", opts)
 -- remap macro record key
-keymap("n", "Q", "q", opts)
+keymap("n", "Q", ":!q<cr>", opts)
+keymap("n", "<C-r>", ":set mouse=r<cr>", opts)
+keymap("n", "<C-a>", ":set mouse=a<cr>", opts)
 -- cancel q
-keymap("n", "q", "<Nop>", opts)
+-- keymap("n", "q", "<Nop>", opts)
 
 -- center cursor
 keymap("n", "n", "nzzzv", opts)
