@@ -48,6 +48,7 @@ keymap("n", "ZZ", ":lua require('user.utils').SaveAndExit()<cr>", opts)
 -- keymap("n", "Q", ":!q<cr>", opts)
 keymap("n", "rr", ":set mouse=r<cr>", opts)
 keymap("n", "aa", ":set mouse=a<cr>", opts)
+keymap("n", ";c", ":set cc=80<cr>", opts)
 -- cancel q
 -- keymap("n", "q", "<Nop>", opts)
 

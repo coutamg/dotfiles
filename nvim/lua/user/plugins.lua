@@ -334,6 +334,13 @@ return packer.startup(function(use)
   use "Pocco81/auto-save.nvim"
   use "djoshea/vim-autoread"
 
+  use {
+    "lukas-reineke/virt-column.nvim",
+    commit = "2a7460c34998427e74a153b60dbeba97a6b3884e",
+    config = function()
+        require("virt-column").setup({char = "║", virtcolumn = "80",})
+     end,
+  }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
