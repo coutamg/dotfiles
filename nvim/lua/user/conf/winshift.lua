@@ -13,19 +13,39 @@ require("winshift").setup({
   -- The window picker is used to select a window while swapping windows with
   -- ':WinShift swap'.
   -- A string of chars used as identifiers by the window picker.
-  window_picker_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
-  window_picker_ignore = {
-    -- This table allows you to indicate to the window picker that a window
-    -- should be ignored if its buffer matches any of the following criteria.
-    filetype = {  -- List of ignored file types
-      "NvimTree",
-    },
-    buftype = {   -- List of ignored buftypes
-      "terminal",
-      "quickfix",
-    },
-    bufname = {   -- List of regex patterns matching ignored buffer names
-      [[.*foo/bar/baz\.qux]]
-    },
-  },
+  -- window_picker_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+  -- window_picker_ignore = {
+  --   -- This table allows you to indicate to the window picker that a window
+  --   -- should be ignored if its buffer matches any of the following criteria.
+  --   filetype = {  -- List of ignored file types
+  --     "NvimTree",
+  --   },
+  --   buftype = {   -- List of ignored buftypes
+  --     "terminal",
+  --     "quickfix",
+  --   },
+  --   bufname = {   -- List of regex patterns matching ignored buffer names
+  --     [[.*foo/bar/baz\.qux]]
+  --   },
+  -- },
+  window_picker = function()
+    return require("winshift.lib").pick_window({
+        picker_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+        filter_rules = {
+            cur_win = true,
+            floats = true,
+            filetype = {
+                "NvimTree",
+            },
+            buftype = {
+                "terminal",
+                "quickfix",
+            },
+            bufname = {
+                [[.*foo/bar/baz\.qux]]
+            },
+        },
+    })
+  end,
+    
 })

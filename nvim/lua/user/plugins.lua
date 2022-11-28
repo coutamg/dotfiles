@@ -80,7 +80,10 @@ return packer.startup(function(use)
   use "lewis6991/impatient.nvim" -- Speed up loading Lua modules    TODO: figure out how to use this
   use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
   use "nvim-lua/plenary.nvim" -- Useful lua functions used ny lots of plugins
-  use "rcarriga/nvim-notify" -- notify
+  use {
+    "rcarriga/nvim-notify", -- notify
+    tag = "v3.7.0",
+  }
   use "kyazdani42/nvim-web-devicons" -- icons
 
   -- Telescope
@@ -96,11 +99,20 @@ return packer.startup(function(use)
   --   "nvim-telescope/telescope-frecency.nvim",
   --   requires = {"tami5/sqlite.lua"}   -- NOTE: need to install sqlite lib
   -- }
-  use "nvim-telescope/telescope-ui-select.nvim"
-  use "nvim-telescope/telescope-live-grep-raw.nvim"
+  use {
+    "nvim-telescope/telescope-ui-select.nvim",
+    commit = "62ea5e58c7bbe191297b983a9e7e89420f581369",
+  }
+  use {
+     "nvim-telescope/telescope-live-grep-args.nvim",
+     commit = "54eaae1a84b51e2774c7b6f948d70dd11d46dee5",
+  }
   use "MattesGroeger/vim-bookmarks"
   use "tom-anders/telescope-vim-bookmarks.nvim"
-  use "nvim-telescope/telescope-dap.nvim"
+  use {
+    "nvim-telescope/telescope-dap.nvim",
+    commit = "b4134fff5cbaf3b876e6011212ed60646e56f060",
+  }
 
   -- Treesittetr
   use {
@@ -122,8 +134,14 @@ return packer.startup(function(use)
   -- }
 
   -- LSP
-  use "neovim/nvim-lspconfig" -- enable LSP
-  use "williamboman/nvim-lsp-installer" -- simple to use language server installer
+  use {
+    "neovim/nvim-lspconfig", -- enable LSP
+    commit = "a2817c9d9500079a0340286a88653b41707a92eb",
+  }
+  use {
+    "williamboman/nvim-lsp-installer", -- simple to use language server installer
+    commit = "ae913cb4fd62d7a84fb1582e11f2e15b4d597123",
+  }
   -- use "jose-elias-alvarez/null-ls.nvim" -- for formatters and linters
   -- use "RishabhRD/popfix"
   -- use "RishabhRD/nvim-lsputils"
@@ -138,17 +156,25 @@ return packer.startup(function(use)
   -- Editor enhance
   use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
   use "terrortylor/nvim-comment"
-  use "Shatur/neovim-session-manager"
+  use {
+         "Shatur/neovim-session-manager",
+         commit = "67c236384b47e761bad4fe8db85ea5707de09de7"
+  }
+    
   -- cmp plugins
   use {
     "hrsh7th/nvim-cmp",
+    commit = "431f0459681724c97e58899272b6acf5ff039cba",
     -- commit = "4f1358e659d51c69055ac935e618b684cf4f1429",
   } -- The completion plugin
   use "hrsh7th/cmp-buffer" -- buffer completions
   use "hrsh7th/cmp-path" -- path completions
   use "hrsh7th/cmp-cmdline" -- cmdline completions
   use "saadparwaiz1/cmp_luasnip" -- snippet completions
-  use "hrsh7th/cmp-nvim-lsp"
+  use {
+    "hrsh7th/cmp-nvim-lsp",
+    commit = "59224771f91b86d1de12570b4070fe4ad7cd1eeb",
+  }
   use "hrsh7th/cmp-nvim-lua"
   -- use "quangnguyen30192/cmp-nvim-tags"
   use "jsfaint/gen_tags.vim"
@@ -173,7 +199,10 @@ return packer.startup(function(use)
   use "akinsho/toggleterm.nvim" -- toggle terminal
   use "ahmedkhalf/project.nvim" -- project manager
   use "lukas-reineke/indent-blankline.nvim" -- indent blankline
-  use "folke/which-key.nvim" -- which  key
+  use {
+    "folke/which-key.nvim", -- which  key
+    commit = "61553aeb3d5ca8c11eea8be6eadf478062982ac9",
+  }
   use {
     "phaazon/hop.nvim", -- like easymotion, but more powerful
     branch = "v1", -- optional but strongly recommended
@@ -194,7 +223,10 @@ return packer.startup(function(use)
     commit = "f9480362549e2b50a8616fe4530deaabbc4f889b",
   }
   use "theHamsta/nvim-dap-virtual-text"
-  use "rcarriga/nvim-dap-ui"
+  use {
+    "rcarriga/nvim-dap-ui",
+    commit = "1e21b3b50e67700e32285b5a74e645311fd8bbea",
+  }
   -- use "nvim-telescope/telescope-file-browser.nvim"
   -- use "mfussenegger/nvim-dap-python"    -- debug python
   -- use { "leoluz/nvim-dap-go", module = "dap-go" } -- debug golang
@@ -205,7 +237,13 @@ return packer.startup(function(use)
     "lewis6991/gitsigns.nvim",
     tag = "v0.4",
   }
-  use 'sindrets/diffview.nvim'
+
+  use {
+        'sindrets/diffview.nvim',
+        requires = 'nvim-lua/plenary.nvim',
+        commit = "73271db79722486dca22be3949e44d44c445a39f"
+  }
+    
   -- use "tanvirtin/vgit.nvim"
   -- use "tpope/vim-fugitive"
 
@@ -224,13 +262,23 @@ return packer.startup(function(use)
   }
 
   -- use "folke/tokyonight.nvim"
-  use "kyazdani42/nvim-tree.lua" -- file explore
+  use {
+    "kyazdani42/nvim-tree.lua", -- file explore
+    commit = "0b319a1b284a2e75faa46107d2cda31a30e946bc",
+    requires = {
+        'nvim-tree/nvim-web-devicons', -- optional, for file icons
+    },
+    tag = 'nightly'
+  }
   use {
     "akinsho/bufferline.nvim", -- tab
     tag = "v1.2.0",
   }
   -- use "moll/vim-bbye"
-  use "nvim-lualine/lualine.nvim" -- status line
+  use {
+    "nvim-lualine/lualine.nvim", -- status line
+    commit = "b6314ac556098d7abea9bb8cf896d2e3500eca41",
+  }
   use "goolord/alpha-nvim" -- welcome page
   -- use "startup-nvim/startup.nvim"     -- welcome page
 
@@ -242,10 +290,18 @@ return packer.startup(function(use)
   use "kevinhwang91/nvim-bqf" -- better quick fix
   use "RRethy/vim-illuminate" -- highlight undercursor word
   -- use "lewis6991/spellsitter.nvim" -- spell checker
-  use "folke/todo-comments.nvim" -- todo comments
+  use {
+        "folke/todo-comments.nvim", -- todo comments
+        branch = "neovim-pre-0.8.0",
+  }
+
   -- use "liuchengxu/vista.vim"     -- outline
   -- use "simrat39/symbols-outline.nvim" -- outline
-  use "stevearc/aerial.nvim"
+  use {
+    "stevearc/aerial.nvim",
+    branch = "nvim-0.5",
+  }
+
   use "norcalli/nvim-colorizer.lua" -- show color
   use "folke/trouble.nvim"
   use "j-hui/fidget.nvim" -- show lsp progress
@@ -269,14 +325,17 @@ return packer.startup(function(use)
   use "ravenxrz/vim-local-history"
   -- use "henriquehbr/nvim-startup.lua"
   -- use "AckslD/nvim-neoclip.lua"
-  use "vim-test/vim-test"
+  use {
+    "vim-test/vim-test",
+    commit = "ab7feab8cb139e5b4955cb4c6ddf52e968cb24be",
+  }
   use {
     "rcarriga/vim-ultest",
     run = ":UpdateRemotePlugins"
   }
   use { 'michaelb/sniprun', run = 'bash ./install.sh' }
   -- use "ravenxrz/DoxygenToolkit.vim"
-  use "Pocco81/AutoSave.nvim"
+  use "Pocco81/auto-save.nvim"
   use "djoshea/vim-autoread"
 
 
