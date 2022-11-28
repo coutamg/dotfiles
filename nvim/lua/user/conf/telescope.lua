@@ -174,7 +174,8 @@ telescope.setup {
        previewer = false,
        -- find_command = { "find", "-type", "f" },
        find_command = {"fd"},
-    },
+     },
+   },
 
   --   -- Default configuration for builtin pickers goes here:
   --   -- picker_name = {

@@ -117,8 +117,8 @@ return packer.startup(function(use)
   -- Treesittetr
   use {
     "nvim-treesitter/nvim-treesitter",
+    branch = "0.5-compat",
     run = ":TSUpdate",
-    commit = "44b7c8100269161e20d585f24bce322f6dcdf8d2",
   }
   use {
     "nvim-treesitter/nvim-treesitter-textobjects",
@@ -265,10 +265,6 @@ return packer.startup(function(use)
   use {
     "kyazdani42/nvim-tree.lua", -- file explore
     commit = "0b319a1b284a2e75faa46107d2cda31a30e946bc",
-    requires = {
-        'nvim-tree/nvim-web-devicons', -- optional, for file icons
-    },
-    tag = 'nightly'
   }
   use {
     "akinsho/bufferline.nvim", -- tab
