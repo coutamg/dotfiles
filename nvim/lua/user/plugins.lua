@@ -177,8 +177,8 @@ return packer.startup(function(use)
   }
   use "hrsh7th/cmp-nvim-lua"
   -- use "quangnguyen30192/cmp-nvim-tags"
-  use "jsfaint/gen_tags.vim"
-  use "ray-x/cmp-treesitter"
+  -- use "jsfaint/gen_tags.vim"
+  use "ray-x/cmp-trwesitter"
   use "f3fora/cmp-spell" -- spell check
   -- use "github/copilot.vim"  -- Copilot setup,
   -- use {
@@ -254,6 +254,7 @@ return packer.startup(function(use)
   -- use "navarasu/onedark.nvim"
   use({
     "catppuccin/nvim",
+	tag = "v0.2.4",
     as = "catppuccin"
   })
   use {
@@ -299,7 +300,10 @@ return packer.startup(function(use)
   }
 
   use "norcalli/nvim-colorizer.lua" -- show color
-  use "folke/trouble.nvim"
+  use {
+	  "folke/trouble.nvim",
+  	  tag = "v1.0.2",
+  }
   use "j-hui/fidget.nvim" -- show lsp progress
   use "sindrets/winshift.nvim" -- rerange window layout
   -- litee family
@@ -338,7 +342,7 @@ return packer.startup(function(use)
     "lukas-reineke/virt-column.nvim",
     commit = "2a7460c34998427e74a153b60dbeba97a6b3884e",
     config = function()
-        require("virt-column").setup({char = "║", virtcolumn = "80",})
+        require("virt-column").setup({char = "║", virtcolumn = "90",})
      end,
   }
 

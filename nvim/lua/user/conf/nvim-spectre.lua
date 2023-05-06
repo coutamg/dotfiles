@@ -19,13 +19,13 @@ spectre.setup(
             },
             -- 前往文件
             ["enter_file"] = {
-                map = "o",
+                map = "<leader>so",
                 cmd = "<cmd>lua require('spectre.actions').select_entry()<CR>",
                 desc = "goto current file"
             },
             -- 查看菜单（忽略大小写、忽略隐藏文件）
             ["show_option_menu"] = {
-                map = "<leader>o",
+                map = "<leader>sc",
                 cmd = "<cmd>lua require('spectre').show_options()<CR>",
                 desc = "show option"
             },
