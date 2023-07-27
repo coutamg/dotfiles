@@ -30,7 +30,7 @@
     ~/.tmux.conf: tmux.conf
     ~/.vimrc:
     ~/.config/lazygit: lazygit
-    ~/.config/nvim: nvim
+    ~/.config/nvim: LunarVim
     ~/.config/clash: clash
     ~/.config/zellij: zellij
     ~/.config/alacritty: alacritty 
